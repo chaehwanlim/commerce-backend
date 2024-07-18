@@ -2,12 +2,14 @@ package chlim.commercebackend;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 @SpringBootApplication
-public class CommercebackendApplication {
+@EnableJpaAuditing
+public class CommerceBackendApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(CommercebackendApplication.class, args);
+		SpringApplication.run(CommerceBackendApplication.class, args);
 	}
 
 }
