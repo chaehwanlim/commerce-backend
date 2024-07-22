@@ -41,6 +41,10 @@ public class UserAuthentication {
 		this.password = password;
 	}
 
+	public boolean supports(UserAuthenticationType type) {
+		return this.type.equals(type);
+	}
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o)

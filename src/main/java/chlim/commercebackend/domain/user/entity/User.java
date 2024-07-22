@@ -6,6 +6,7 @@ import java.util.Objects;
 
 import chlim.commercebackend.domain.userauthentication.entity.UserAuthentication;
 import chlim.commercebackend.domain.userauthentication.entity.UserAuthenticationType;
+import chlim.commercebackend.domain.userauthentication.problem.UserAuthenticationNotFoundProblem;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -50,6 +51,17 @@ public class User {
 			.type(UserAuthenticationType.PASSWORD)
 			.password(encodedPassword)
 			.build());
+	}
+
+	public UserAuthentication findAuthenticationByType(UserAuthenticationType type) {
+		return this.authentications.stream()
+			.filter(authentication -> authentication.supports(type))
+			.findFirst()
+			.orElseThrow(() -> new UserAuthenticationNotFoundProblem(String.format("%s authentication not found", type)));
+	}
+
+	public String getEncodedPassword() {
+		return this.findAuthenticationByType(UserAuthenticationType.PASSWORD).getPassword();
 	}
 
 	private void validateEmail(String email) {
