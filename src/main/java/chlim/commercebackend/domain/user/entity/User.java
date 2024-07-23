@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import chlim.commercebackend.domain.common.AbstractEntity;
 import chlim.commercebackend.domain.userauthentication.entity.UserAuthentication;
 import chlim.commercebackend.domain.userauthentication.entity.UserAuthenticationType;
 import chlim.commercebackend.domain.userauthentication.problem.UserAuthenticationNotFoundProblem;
@@ -22,7 +23,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "users")
 @Getter
 @NoArgsConstructor
-public class User {
+public class User extends AbstractEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

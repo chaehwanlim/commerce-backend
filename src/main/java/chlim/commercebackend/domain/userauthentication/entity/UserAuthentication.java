@@ -35,6 +35,9 @@ public class UserAuthentication {
 
 	@Builder
 	public UserAuthentication(Long id, User user, UserAuthenticationType type, String password) {
+		validateUser(user);
+		validateType(type);
+
 		this.id = id;
 		this.user = user;
 		this.type = type;
@@ -43,6 +46,18 @@ public class UserAuthentication {
 
 	public boolean supports(UserAuthenticationType type) {
 		return this.type.equals(type);
+	}
+
+	private void validateUser(User user) {
+		if (user == null) {
+			throw new IllegalArgumentException("User must not be null");
+		}
+	}
+
+	private void validateType(UserAuthenticationType type) {
+		if (type == null) {
+			throw new IllegalArgumentException("Authentication type must not be null");
+		}
 	}
 
 	@Override
