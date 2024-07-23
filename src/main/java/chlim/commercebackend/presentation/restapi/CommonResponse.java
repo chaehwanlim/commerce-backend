@@ -1,6 +1,7 @@
 package chlim.commercebackend.presentation.restapi;
 
 import chlim.commercebackend.domain.common.Problem;
+import jakarta.validation.ConstraintViolationException;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,19 +25,35 @@ public class CommonResponse<T> {
 			.build();
 	}
 
-	public static <T>CommonResponse fail(Exception e) {
-		return CommonResponse.builder()
-			.message(e.getMessage() + " " + e.getCause())
-			.errorCode("INTERNAL_SERVER_ERROR")
-			.data(e.getStackTrace())
-			.build();
-	}
-
-	public static <T>CommonResponse fail(Problem e) {
+	public static CommonResponse fail(Problem e) {
 		return CommonResponse.builder()
 			.message(e.getMessage())
 			.errorCode(e.getErrorCode())
 			.data(e.getCause())
+			.build();
+	}
+
+	public static CommonResponse fail(ConstraintViolationException e) {
+		return CommonResponse.builder()
+			.message(e.getMessage())
+			.errorCode("invalid-request")
+			.data(e.getStackTrace())
+			.build();
+	}
+
+	public static CommonResponse fail(IllegalArgumentException e) {
+		return CommonResponse.builder()
+			.message(e.getMessage())
+			.errorCode("invalid-request")
+			.data(e.getStackTrace())
+			.build();
+	}
+
+	public static CommonResponse fail(Exception e) {
+		return CommonResponse.builder()
+			.message(e.getMessage() + " " + e.getCause())
+			.errorCode("internal-server-error")
+			.data(e.getStackTrace())
 			.build();
 	}
 }

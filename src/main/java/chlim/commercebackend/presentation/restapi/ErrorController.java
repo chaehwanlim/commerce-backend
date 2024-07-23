@@ -15,8 +15,15 @@ public class ErrorController {
 
 	@ResponseBody
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	@ExceptionHandler(value = {ConstraintViolationException.class, IllegalArgumentException.class})
+	@ExceptionHandler(value = ConstraintViolationException.class)
 	public CommonResponse onConstraintViolationException(ConstraintViolationException e) {
+		return CommonResponse.fail(e);
+	}
+
+	@ResponseBody
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	@ExceptionHandler(value = IllegalArgumentException.class)
+	public CommonResponse onIllegalArgumentException(IllegalArgumentException e) {
 		return CommonResponse.fail(e);
 	}
 
@@ -45,4 +52,3 @@ public class ErrorController {
 		return CommonResponse.fail(e);
 	}
 }
-
