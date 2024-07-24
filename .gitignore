@@ -37,3 +37,5 @@ out/
 .vscode/
 
 .jqwik-database
+
+src/main/generated/
