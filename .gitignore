@@ -39,3 +39,4 @@ out/
 .jqwik-database
 
 src/main/generated/
+secrets.yml

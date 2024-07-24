@@ -25,10 +25,6 @@ spring:
   sql:
     init:
       platform: h2
-  servlet:
-    multipart:
-      max-file-size: 100MB
-      max-request-size: 110MB
 
 server:
   port: 8080

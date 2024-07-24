@@ -2,6 +2,7 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.3.1'
 	id 'io.spring.dependency-management' version '1.1.5'
+	id 'com.google.cloud.tools.jib' version '3.4.3'
 }
 
 group = 'chlim'
@@ -52,4 +53,23 @@ dependencies {
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+jib {
+	from {
+		image = "openjdk:17-jdk-alpine"
+	}
+	to {
+		image = "806246625807.dkr.ecr.ap-northeast-2.amazonaws.com/commerce-backend"
+		credHelper = "ecr-login"
+	}
+	container {
+		jvmFlags = [
+				"-Dspring.datasource.url=${System.getProperty('SPRING_DATASOURCE_URL')}",
+				"-Dspring.datasource.username=${System.getProperty('SPRING_DATASOURCE_USERNAME')}",
+				"-Dspring.datasource.password=${System.getProperty('SPRING_DATASOURCE_PASSWORD')}",
+				"-Dspring.profiles.active=prod"
+		]
+		ports = ["8080"]
+	}
 }
