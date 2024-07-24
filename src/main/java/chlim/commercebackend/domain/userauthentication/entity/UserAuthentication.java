@@ -2,6 +2,7 @@ package chlim.commercebackend.domain.userauthentication.entity;
 
 import java.util.Objects;
 
+import chlim.commercebackend.domain.common.AbstractEntity;
 import chlim.commercebackend.domain.user.entity.User;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -18,7 +19,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor
-public class UserAuthentication {
+public class UserAuthentication extends AbstractEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
