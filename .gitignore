@@ -40,3 +40,5 @@ out/
 
 src/main/generated/
 secrets.yml
+
+src/main/resources/application-prod-local.yml
