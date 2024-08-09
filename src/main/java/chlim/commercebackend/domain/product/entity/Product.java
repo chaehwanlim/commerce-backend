@@ -1,8 +1,11 @@
 package chlim.commercebackend.domain.product.entity;
 
+import java.util.Objects;
+
 import org.apache.commons.lang3.ObjectUtils;
 
 import chlim.commercebackend.domain.common.AbstractEntity;
+import chlim.commercebackend.domain.product.problem.ProductNotPurchasableProblem;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -41,6 +44,12 @@ public class Product extends AbstractEntity {
 		this.quantity = quantity;
 	}
 
+	public void ensurePurchasable(Long quantity) {
+		if (this.quantity < quantity) {
+			throw ProductNotPurchasableProblem.withQuantity(quantity);
+		}
+	}
+
 	private void validateName(String name) {
 		if (ObjectUtils.isEmpty(name)) {
 			throw new IllegalArgumentException("Product name must not be empty");
@@ -57,5 +66,20 @@ public class Product extends AbstractEntity {
 		if (quantity == null || quantity < 0) {
 			throw new IllegalArgumentException("Product quantity must not be null or negative");
 		}
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
+		Product product = (Product)o;
+		return Objects.equals(id, product.id);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hashCode(id);
 	}
 }

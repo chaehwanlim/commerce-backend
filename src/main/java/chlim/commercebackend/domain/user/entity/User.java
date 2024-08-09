@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import chlim.commercebackend.domain.cart.entity.Cart;
 import chlim.commercebackend.domain.common.AbstractEntity;
+import chlim.commercebackend.domain.product.entity.Product;
 import chlim.commercebackend.domain.userauthentication.entity.UserAuthentication;
 import chlim.commercebackend.domain.userauthentication.entity.UserAuthenticationType;
 import chlim.commercebackend.domain.userauthentication.problem.UserAuthenticationNotFoundProblem;
@@ -14,6 +16,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Builder;
 import lombok.Getter;
@@ -36,6 +39,9 @@ public class User extends AbstractEntity {
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<UserAuthentication> authentications = new ArrayList<>();
 
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+	private Cart cart;
+
 	@Builder
 	public User(Long id, String email, String name) {
 		validateEmail(email);
@@ -44,6 +50,7 @@ public class User extends AbstractEntity {
 		this.id = id;
 		this.email = email;
 		this.name = name;
+		this.cart = new Cart(this);
 	}
 
 	public void addPasswordAuthentication(String encodedPassword) {
@@ -58,11 +65,15 @@ public class User extends AbstractEntity {
 		return this.authentications.stream()
 			.filter(authentication -> authentication.supports(type))
 			.findFirst()
-			.orElseThrow(() -> new UserAuthenticationNotFoundProblem(String.format("%s authentication not found", type)));
+			.orElseThrow(() -> new UserAuthenticationNotFoundProblem(String.format("%s authentication is not found", type)));
 	}
 
 	public String getEncodedPassword() {
 		return this.findAuthenticationByType(UserAuthenticationType.PASSWORD).getPassword();
+	}
+
+	public void addProductInCart(Product product, Long quantity) {
+		this.cart.add(product, quantity);
 	}
 
 	private void validateEmail(String email) {

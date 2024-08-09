@@ -17,4 +17,14 @@ public class ProductFixture {
 			.quantity(QUANTITY)
 			.build();
 	}
+
+	public static Product createProductById(Long id) {
+		return Product.builder()
+			.id(id)
+			.name(NAME)
+			.description(DESCRIPTION)
+			.price(PRICE)
+			.quantity(QUANTITY)
+			.build();
+	}
 }
