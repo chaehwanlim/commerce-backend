@@ -24,10 +24,10 @@ public class PasswordSignIn {
 
 	public SignInResult execute(PasswordSignInCommand command) {
 		User user = userRepository.findByEmail(command.getEmail())
-			.orElseThrow(() -> new UserNotFoundProblem("User not found with email: " + command.getEmail()));
+			.orElseThrow(() -> UserNotFoundProblem.withEmail(command.getEmail()));
 
 		if (!verifyPasswordService.verify(command.getPassword(), user.getEncodedPassword())) {
-			throw new UserAuthenticationIncorrectProblem("Password is not correct");
+			throw new UserAuthenticationIncorrectProblem("Password is incorrect");
 		}
 
 		String accessToken = createIdTokenService.createIdToken(user);

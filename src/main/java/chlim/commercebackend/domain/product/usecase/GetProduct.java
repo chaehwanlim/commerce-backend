@@ -19,6 +19,6 @@ public class GetProduct {
 	public ProductResult execute(GetProductCommand command) {
 		return productRepository.findById(command.getId())
 				.map(ProductResult::from)
-				.orElseThrow(() -> new ProductNotFoundProblem("Product not found with id: " + command.getId()));
+				.orElseThrow(() -> ProductNotFoundProblem.withId(command.getId()));
 	}
 }

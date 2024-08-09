@@ -24,7 +24,7 @@ public class PasswordSignUp {
 	public SignUpResult execute(PasswordSignUpCommand command) {
 		userRepository.findByEmail(command.getEmail())
 			.ifPresent(user -> {
-				throw new UserAlreadyExistsProblem("User already exists with email: " + command.getEmail());
+				throw UserAlreadyExistsProblem.withEmail(command.getEmail());
 			});
 
 		User user = userRepository.save(User.builder()
