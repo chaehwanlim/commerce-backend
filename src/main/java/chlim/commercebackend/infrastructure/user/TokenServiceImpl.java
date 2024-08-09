@@ -9,6 +9,7 @@ import java.util.Map;
 import org.springframework.stereotype.Service;
 
 import chlim.commercebackend.domain.user.domainservice.CreateIdTokenService;
+import chlim.commercebackend.domain.user.domainservice.IdentifyByIdTokenService;
 import chlim.commercebackend.domain.user.entity.User;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -16,7 +17,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class TokenServiceImpl implements CreateIdTokenService {
+public class TokenServiceImpl implements CreateIdTokenService, IdentifyByIdTokenService {
 
 	private static final String SECRET_KEY = "3p892uujmi2849ujr2imjmjdj3928t3iecf";
 
@@ -36,5 +37,10 @@ public class TokenServiceImpl implements CreateIdTokenService {
 			.compact();
 
 		return jwt;
+	}
+
+	@Override
+	public Long identifyByIdToken(String token) {
+		return Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody().get("id", Long.class);
 	}
 }

@@ -1,4 +1,4 @@
-package chlim.commercebackend.presentation.restapi.config;
+package chlim.commercebackend.presentation.restapi.security;
 
 import java.util.List;
 
@@ -41,13 +41,12 @@ public class SecurityConfig {
 			.csrf(AbstractHttpConfigurer::disable)
 			.cors(corsConfigurer -> corsConfigurer.configurationSource(corsConfigurationSource()))
 			.sessionManagement(sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-			.authorizeHttpRequests(authorize ->
-				authorize.requestMatchers("/**").permitAll()
-			)
+			.formLogin(AbstractHttpConfigurer::disable)
+			.authorizeHttpRequests(customizer -> customizer.anyRequest().permitAll())
 			.exceptionHandling(exceptionHandling -> exceptionHandling.authenticationEntryPoint((request, response, authException) -> {
 				response.setContentType("application/json");
-				response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-				response.getWriter().write("{\"message\": access denied}");
+				response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+				response.getWriter().write(String.format("{\"message\": %s}", authException.getMessage()));
 			}));
 
 		return httpSecurity.build();
