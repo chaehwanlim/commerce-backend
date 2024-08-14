@@ -32,7 +32,7 @@ public class PasswordSignUp {
 			.name(command.getName())
 			.build());
 
-		String encodedPassword = encodePasswordService.encode(command.getPassword());
+		String encodedPassword = encodePasswordService.encodePassword(command.getPassword());
 		user.addPasswordAuthentication(encodedPassword);
 
 		String accessToken = createIdTokenService.createIdToken(user);

@@ -65,7 +65,7 @@ class PasswordSignInTest {
 		@Test
 		@DisplayName("비밀번호가 일치하지 않으면 로그인 할 수 없다.")
 		void fail() {
-			when(verifyPasswordService.verify("wrongPassword", user.getEncodedPassword()))
+			when(verifyPasswordService.verifyPassword("wrongPassword", user.getEncodedPassword()))
 				.thenReturn(false);
 
 			PasswordSignInCommand command = PasswordSignInCommand.builder()
@@ -80,7 +80,7 @@ class PasswordSignInTest {
 		@Test
 		@DisplayName("비밀번호가 일치하면 로그인 할 수 있다.")
 		void success() {
-			when(verifyPasswordService.verify("rightPassword", user.getEncodedPassword()))
+			when(verifyPasswordService.verifyPassword("rightPassword", user.getEncodedPassword()))
 				.thenReturn(true);
 			when(createIdTokenService.createIdToken(user))
 				.thenReturn("accessToken");

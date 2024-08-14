@@ -58,7 +58,7 @@ class PasswordSignUpTest {
 		User user = UserFixture.createPasswordUser();
 		when(userRepository.findByEmail(UserFixture.EMAIL))
 			.thenReturn(Optional.empty());
-		when(encodePasswordService.encode(any()))
+		when(encodePasswordService.encodePassword(any()))
 			.thenReturn("encodedPassword");
 		when(userRepository.save(any()))
 			.thenReturn(user);

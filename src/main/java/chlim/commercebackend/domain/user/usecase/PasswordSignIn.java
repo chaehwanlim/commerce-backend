@@ -26,7 +26,7 @@ public class PasswordSignIn {
 		User user = userRepository.findByEmail(command.getEmail())
 			.orElseThrow(() -> UserNotFoundProblem.withEmail(command.getEmail()));
 
-		if (!verifyPasswordService.verify(command.getPassword(), user.getEncodedPassword())) {
+		if (!verifyPasswordService.verifyPassword(command.getPassword(), user.getEncodedPassword())) {
 			throw new UserAuthenticationIncorrectProblem("Password is incorrect");
 		}
 

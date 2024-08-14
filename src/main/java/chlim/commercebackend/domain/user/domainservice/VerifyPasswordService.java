@@ -2,5 +2,5 @@ package chlim.commercebackend.domain.user.domainservice;
 
 public interface VerifyPasswordService {
 
-	boolean verify(String rawPassword, String encodedPassword);
+	boolean verifyPassword(String rawPassword, String encodedPassword);
 }

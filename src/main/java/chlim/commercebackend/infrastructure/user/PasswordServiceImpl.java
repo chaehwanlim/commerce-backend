@@ -13,12 +13,12 @@ public class PasswordServiceImpl implements EncodePasswordService, VerifyPasswor
 	private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
 	@Override
-	public String encode(String rawPassword) {
+	public String encodePassword(String rawPassword) {
 		return passwordEncoder.encode(rawPassword);
 	}
 
 	@Override
-	public boolean verify(String rawPassword, String encodedPassword) {
+	public boolean verifyPassword(String rawPassword, String encodedPassword) {
 		return passwordEncoder.matches(rawPassword, encodedPassword);
 	}
 }
