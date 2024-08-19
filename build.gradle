@@ -49,6 +49,9 @@ dependencies {
 	annotationProcessor 'jakarta.annotation:jakarta.annotation-api'
 	annotationProcessor 'jakarta.persistence:jakarta.persistence-api'
 
+	// SMS
+	implementation 'net.nurigo:sdk:4.3.0'
+
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'com.mysql:mysql-connector-j'
 	annotationProcessor 'org.projectlombok:lombok'
@@ -70,9 +73,6 @@ jib {
 	}
 	container {
 		jvmFlags = [
-				"-Dspring.datasource.url=${System.getProperty('SPRING_DATASOURCE_URL')}",
-				"-Dspring.datasource.username=${System.getProperty('SPRING_DATASOURCE_USERNAME')}",
-				"-Dspring.datasource.password=${System.getProperty('SPRING_DATASOURCE_PASSWORD')}",
 				"-Dspring.profiles.active=prod"
 		]
 		ports = ["8080"]

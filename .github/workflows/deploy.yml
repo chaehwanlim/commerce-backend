@@ -33,8 +33,11 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v2
 
+      - name: Create prod config file
+        run: echo "${{ secrets.PROD_APP_CONFIG }}" > src/main/resources/application-prod.yml
+
       - name: Jib build
-        run: ./gradlew clean jib -DSPRING_DATASOURCE_URL=${{ secrets.SPRING_DATASOURCE_URL }} -DSPRING_DATASOURCE_USERNAME=${{ secrets.SPRING_DATASOURCE_USERNAME }} -DSPRING_DATASOURCE_PASSWORD=${{ secrets.SPRING_DATASOURCE_PASSWORD }}
+        run: ./gradlew clean jib
 
   deploy:
     needs: build
