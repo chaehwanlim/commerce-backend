@@ -3,6 +3,8 @@ package chlim.commercebackend.domain.auth.entity;
 import java.time.ZonedDateTime;
 import java.util.Objects;
 
+import chlim.commercebackend.domain.auth.problem.VerificationCodeWrongProblem;
+import chlim.commercebackend.domain.auth.problem.VerificationMessageExpiredProblem;
 import chlim.commercebackend.domain.common.AbstractEntity;
 import chlim.commercebackend.util.RandomGenerator;
 import jakarta.persistence.Entity;
@@ -67,6 +69,23 @@ public class VerificationMessage extends AbstractEntity {
 			.status(VerificationMessageStatus.SENT)
 			.purpose(VerificationMessagePurpose.PHONE_VERIFICATION)
 			.build();
+	}
+
+	public boolean hasExpired() {
+		return VerificationMessageStatus.USED.equals(this.status)
+			|| this.expiresAt.isBefore(ZonedDateTime.now());
+	}
+
+	public void verify(String code) {
+		if (!this.code.equals(code)) {
+			throw new VerificationCodeWrongProblem();
+		}
+
+		if (hasExpired()) {
+			throw new VerificationMessageExpiredProblem();
+		}
+
+		this.status = VerificationMessageStatus.USED;
 	}
 
 	@Override

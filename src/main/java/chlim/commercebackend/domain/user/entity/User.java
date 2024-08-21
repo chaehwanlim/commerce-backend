@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import chlim.commercebackend.domain.auth.entity.VerificationMessage;
 import chlim.commercebackend.domain.cart.entity.Cart;
 import chlim.commercebackend.domain.common.AbstractEntity;
 import chlim.commercebackend.domain.product.entity.Product;
@@ -35,6 +36,8 @@ public class User extends AbstractEntity {
 	private String email;
 
 	private String name;
+
+	private String phoneNumber;
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<UserAuthentication> authentications = new ArrayList<>();
@@ -74,6 +77,12 @@ public class User extends AbstractEntity {
 
 	public void addProductInCart(Product product, Long quantity) {
 		this.cart.add(product, quantity);
+	}
+
+	public void completePhoneVerification(VerificationMessage verificationMessage, String code) {
+		verificationMessage.verify(code);
+
+		this.phoneNumber = verificationMessage.getReceiver();
 	}
 
 	private void validateEmail(String email) {

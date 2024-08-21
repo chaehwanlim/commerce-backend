@@ -38,7 +38,7 @@ class SendPhoneVerificationMessageTest {
 	void failOnVerificationAttemptExceededLimitProblem() {
 		when(verificationMessageRepository.findVerificationMessagesSentTodayTo("01012345678"))
 			.thenReturn(IntStream.range(0, 5)
-				.mapToObj(i -> VerificationMessageFixture.createVerificationMessage())
+				.mapToObj(i -> VerificationMessageFixture.forPhoneVerification())
 				.toList());
 
 		assertThatThrownBy(() -> sendPhoneVerificationMessage.execute(command))
@@ -50,7 +50,7 @@ class SendPhoneVerificationMessageTest {
 	void success() {
 		when(verificationMessageRepository.findVerificationMessagesSentTodayTo(PHONE_NUMBER))
 			.thenReturn(IntStream.range(0, 3)
-				.mapToObj(i -> VerificationMessageFixture.createVerificationMessage())
+				.mapToObj(i -> VerificationMessageFixture.forPhoneVerification())
 				.toList());
 
 		sendPhoneVerificationMessage.execute(command);
