@@ -71,7 +71,7 @@ public class AuthenticationFilter extends OncePerRequestFilter {
 		registrationBean.addUrlPatterns(List.of(
 			"/api/v1/carts/*",
 			"/api/v1/products/*",
-			"/api/v1/auth/phone-verification/complete"
+			"/api/v1/verification/phone/complete"
 		).toArray(new String[0]));
 		registrationBean.setName("AuthenticationFilter");
 		registrationBean.setOrder(1);

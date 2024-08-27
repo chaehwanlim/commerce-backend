@@ -2,7 +2,7 @@ package chlim.commercebackend.testfixtures.domain;
 
 import org.springframework.test.util.ReflectionTestUtils;
 
-import chlim.commercebackend.domain.auth.entity.VerificationMessage;
+import chlim.commercebackend.domain.verification.entity.VerificationMessage;
 
 public class VerificationMessageFixture {
 

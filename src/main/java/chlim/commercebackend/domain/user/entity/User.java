@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import chlim.commercebackend.domain.auth.entity.VerificationMessage;
 import chlim.commercebackend.domain.cart.entity.Cart;
 import chlim.commercebackend.domain.common.AbstractEntity;
 import chlim.commercebackend.domain.product.entity.Product;
 import chlim.commercebackend.domain.userauthentication.entity.UserAuthentication;
 import chlim.commercebackend.domain.userauthentication.entity.UserAuthenticationType;
 import chlim.commercebackend.domain.userauthentication.problem.UserAuthenticationNotFoundProblem;
+import chlim.commercebackend.domain.verification.entity.VerificationMessage;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

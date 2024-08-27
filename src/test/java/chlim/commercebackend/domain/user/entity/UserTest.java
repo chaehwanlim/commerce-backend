@@ -6,9 +6,9 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import chlim.commercebackend.domain.auth.entity.VerificationMessage;
 import chlim.commercebackend.domain.userauthentication.entity.UserAuthenticationType;
 import chlim.commercebackend.domain.userauthentication.problem.UserAuthenticationNotFoundProblem;
+import chlim.commercebackend.domain.verification.entity.VerificationMessage;
 import chlim.commercebackend.testfixtures.domain.UserFixture;
 import chlim.commercebackend.testfixtures.domain.VerificationMessageFixture;
 
