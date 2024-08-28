@@ -12,8 +12,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import chlim.commercebackend.domain.message.domainservice.SendMessageService;
 import chlim.commercebackend.domain.verification.command.SendPhoneVerificationMessageCommand;
+import chlim.commercebackend.domain.verification.domainservice.SendPhoneVerificationMessageService;
 import chlim.commercebackend.domain.verification.problem.VerificationAttemptExceededLimitProblem;
 import chlim.commercebackend.domain.verification.repository.VerificationMessageRepository;
 import chlim.commercebackend.testfixtures.domain.VerificationMessageFixture;
@@ -31,7 +31,7 @@ class SendPhoneVerificationMessageTest {
 	private VerificationMessageRepository verificationMessageRepository;
 
 	@Mock
-	private SendMessageService sendMessageService;
+	private SendPhoneVerificationMessageService sendPhoneVerificationMessageService;
 
 	@Test
 	@DisplayName("오늘 전송된 인증 메시지가 5회 이상이면 휴대폰 인증 메시지를 전송할 수 없다.")
@@ -56,6 +56,6 @@ class SendPhoneVerificationMessageTest {
 		sendPhoneVerificationMessage.execute(command);
 
 		verify(verificationMessageRepository).save(any());
-		verify(sendMessageService).sendMessage(any(), any());
+		verify(sendPhoneVerificationMessageService).sendPhoneVerificationMessage(any());
 	}
 }

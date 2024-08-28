@@ -6,6 +6,6 @@ import chlim.commercebackend.domain.common.ProblemCategory;
 public class VerificationCodeWrongProblem extends Problem {
 
 	public VerificationCodeWrongProblem() {
-		super(ProblemCategory.UNPROCESSABLE, "auth/verification-code-wrong", "Verification code is wrong", null);
+		super(ProblemCategory.UNPROCESSABLE, "verification/code-wrong", "Verification code is wrong", null);
 	}
 }

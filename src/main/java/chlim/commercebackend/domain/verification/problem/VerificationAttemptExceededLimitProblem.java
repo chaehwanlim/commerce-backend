@@ -6,6 +6,6 @@ import chlim.commercebackend.domain.common.ProblemCategory;
 public class VerificationAttemptExceededLimitProblem extends Problem {
 
 	public VerificationAttemptExceededLimitProblem() {
-		super(ProblemCategory.UNPROCESSABLE, "auth/verification-attempt-exceeded-limit", "Verification attempt exceeded limit", null);
+		super(ProblemCategory.UNPROCESSABLE, "verification/attempt-exceeded-limit", "Verification attempt exceeded limit", null);
 	}
 }
