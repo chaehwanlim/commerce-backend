@@ -5,6 +5,7 @@ import java.util.Objects;
 import org.apache.commons.lang3.ObjectUtils;
 
 import chlim.commercebackend.domain.common.AbstractEntity;
+import chlim.commercebackend.domain.product.problem.InvalidProductQuantityProblem;
 import chlim.commercebackend.domain.product.problem.ProductNotPurchasableProblem;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -45,6 +46,10 @@ public class Product extends AbstractEntity {
 	}
 
 	public void ensurePurchasable(Long quantity) {
+		if (quantity == null || quantity < 0) {
+			throw InvalidProductQuantityProblem.withQuantity(quantity);
+		}
+
 		if (this.quantity < quantity) {
 			throw ProductNotPurchasableProblem.withQuantity(quantity);
 		}

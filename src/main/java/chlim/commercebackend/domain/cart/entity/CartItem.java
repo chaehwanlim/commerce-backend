@@ -4,6 +4,7 @@ import java.util.Objects;
 
 import org.apache.commons.lang3.ObjectUtils;
 
+import chlim.commercebackend.domain.cart.problem.InvalidCartItemQuantityProblem;
 import chlim.commercebackend.domain.product.entity.Product;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -43,7 +44,13 @@ public class CartItem {
 	}
 
 	public void increaseQuantity(Long quantity) {
+		if (quantity == null || quantity < 0) {
+			throw InvalidCartItemQuantityProblem.withQuantity(quantity);
+		}
+
 		this.quantity += quantity;
+
+		product.ensurePurchasable(this.quantity);
 	}
 
 	@Override

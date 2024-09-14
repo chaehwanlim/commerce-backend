@@ -39,8 +39,6 @@ public class Cart extends AbstractEntity {
 	}
 
 	public void add(Product product, Long quantity) {
-		product.ensurePurchasable(quantity);
-
 		CartItem cartItem = this.items.stream().filter(item -> item.getProduct().equals(product))
 			.findFirst()
 			.orElse(CartItem.builder()
@@ -48,6 +46,7 @@ public class Cart extends AbstractEntity {
 				.product(product)
 				.build()
 			);
+
 		cartItem.increaseQuantity(quantity);
 
 		this.items.add(cartItem);
