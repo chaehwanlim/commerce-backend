@@ -79,6 +79,10 @@ public class User extends AbstractEntity {
 		this.cart.add(product, quantity);
 	}
 
+	public void removeProductInCart(Product product, Long quantity) {
+		this.cart.remove(product, quantity);
+	}
+
 	public void completePhoneVerification(VerificationMessage verificationMessage, String code) {
 		verificationMessage.verify(code);
 

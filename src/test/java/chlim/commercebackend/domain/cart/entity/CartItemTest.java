@@ -33,4 +33,28 @@ class CartItemTest {
 			assertThat(cartItem.getQuantity()).isEqualTo(2L);
 		}
 	}
+
+	@Nested
+	class DecreaseQuantity {
+
+		@Test
+		@DisplayName("수량을 감소시킬 수 있다.")
+		void success() {
+			CartItem cartItem = CartItemFixture.createCartItem();
+
+			cartItem.decreaseQuantity(1L);
+
+			assertThat(cartItem.getQuantity()).isEqualTo(0L);
+		}
+
+		@Test
+		@DisplayName("수량이 0보다 작아지지 않는다.")
+		void quantityIsNotNegative() {
+			CartItem cartItem = CartItemFixture.createCartItem();
+
+			cartItem.decreaseQuantity(3L);
+
+			assertThat(cartItem.getQuantity()).isEqualTo(0L);
+		}
+	}
 }

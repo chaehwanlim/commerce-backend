@@ -12,7 +12,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,7 +25,7 @@ public class CartItem {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name = "product_id")
 	private Product product;
 
@@ -51,6 +50,18 @@ public class CartItem {
 		this.quantity += quantity;
 
 		product.ensurePurchasable(this.quantity);
+	}
+
+	public void decreaseQuantity(Long quantity) {
+		if (quantity == null || quantity < 0) {
+			throw InvalidCartItemQuantityProblem.withQuantity(quantity);
+		}
+
+		this.quantity -= Math.min(this.quantity, quantity);
+	}
+
+	public boolean isEmpty() {
+		return this.quantity <= 0;
 	}
 
 	@Override

@@ -52,6 +52,19 @@ public class Cart extends AbstractEntity {
 		this.items.add(cartItem);
 	}
 
+	public void remove(Product product, Long quantity) {
+		if (quantity == null) {
+			this.items.removeIf(item -> item.getProduct().equals(product));
+			return;
+		}
+
+		this.items.stream().filter(item -> item.getProduct().equals(product))
+			.findFirst()
+			.ifPresent(item -> item.decreaseQuantity(quantity));
+
+		this.items.removeIf(CartItem::isEmpty);
+	}
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o)
