@@ -19,13 +19,18 @@ class CartTest {
 		@DisplayName("카트에 상품이 없다면 새로 추가한다.")
 		void addNewProduct() {
 			Cart cart = CartFixture.createCart();
-			Product product = ProductFixture.createProductById(1L);
+			Product product1 = ProductFixture.createProductById(1L);
+			Product product2 = ProductFixture.createProductById(2L);
 
-			cart.add(product, 2L);
+			cart.add(product1, 2L);
+			cart.add(product2, 3L);
 
-			assertThat(cart.getItems()).hasSize(1);
-			assertThat(cart.getItems().stream().findFirst().get().getProduct()).isEqualTo(product);
-			assertThat(cart.getItems().stream().findFirst().get().getQuantity()).isEqualTo(2L);
+			assertThat(cart.getItems()).hasSize(2);
+			assertThat(cart.getItems().stream().map(item -> item.getProduct())).contains(product1, product2);
+			CartItem cartItem1 = cart.getItems().stream().filter(item -> item.getProduct().equals(product1)).findFirst().get();
+			assertThat(cartItem1.getQuantity()).isEqualTo(2L);
+			CartItem cartItem2 = cart.getItems().stream().filter(item -> item.getProduct().equals(product2)).findFirst().get();
+			assertThat(cartItem2.getQuantity()).isEqualTo(3L);
 		}
 
 		@Test
@@ -34,7 +39,6 @@ class CartTest {
 			Cart cart = CartFixture.createCart();
 			Product product = ProductFixture.createProductById(1L);
 			cart.add(product, 2L);
-
 			cart.add(product, 3L);
 
 			assertThat(cart.getItems()).hasSize(1);
