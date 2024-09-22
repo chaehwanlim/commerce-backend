@@ -65,6 +65,10 @@ public class Cart extends AbstractEntity {
 		this.items.removeIf(CartItem::isEmpty);
 	}
 
+	public boolean isEmpty() {
+		return this.items.isEmpty();
+	}
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o)
