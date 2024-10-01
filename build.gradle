@@ -68,7 +68,7 @@ jib {
 		image = "openjdk:17-jdk-alpine"
 	}
 	to {
-		image = "806246625807.dkr.ecr.ap-northeast-2.amazonaws.com/commerce-backend"
+		image = "664418991126.dkr.ecr.ap-northeast-2.amazonaws.com/commerce-backend"
 		credHelper = "ecr-login"
 	}
 	container {
