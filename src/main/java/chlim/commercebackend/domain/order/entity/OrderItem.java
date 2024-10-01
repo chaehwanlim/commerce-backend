@@ -32,12 +32,15 @@ public class OrderItem {
 	@JoinColumn(name = "order_id")
 	private Order order;
 
+	private Long price;
+
 	private Long quantity;
 
 	@Builder
 	public OrderItem(Product product, Order order, Long quantity) {
 		this.product = product;
 		this.order = order;
+		this.price = product.getPrice();
 		this.quantity = ObjectUtils.defaultIfNull(quantity, 0L);
 	}
 
